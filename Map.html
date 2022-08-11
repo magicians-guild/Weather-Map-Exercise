@@ -21,12 +21,11 @@
         <div class="col-md-5 p-lg-5 mx-auto my-5">
           <h1 class="display-4 fw-normal">First map with weather</h1>
           <p class="lead fw-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple’s marketing pages.</p>
-          <a class="btn btn-warning" href="#">Coming soon</a>
+          <div id="map"></div>
         </div>
         <div class="product-device shadow-sm d-none d-md-block"></div>
         <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
       </div> 
-      <div id="map"></div>
    
 </body>
 <script>
@@ -53,7 +52,10 @@
           popup
           .setLatLng(e.latlng)
           .setContent("You clicked the map at " + e.latlng.toString() + 
-          "\nTemperature: " + data["current_weather"]["temperature"] + " Time: " + data["current_weather"]["time"] + " " + data["timezone"])
+            "<ul>" + 
+              "<li>Temperature: " + data["current_weather"]["temperature"] + "°C</li>" +
+              "<li>Hour: " + data["current_weather"]["time"] + " " + data["timezone"] + "</li>" + 
+            "</ul>")
           .openOn(map);
 
         }
