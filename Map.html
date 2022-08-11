@@ -53,7 +53,7 @@
           popup
           .setLatLng(e.latlng)
           .setContent("You clicked the map at " + e.latlng.toString() + 
-          "\nTemperature: " + data["current_weather"]["temperature"])
+          "\nTemperature: " + data["current_weather"]["temperature"] + " Time: " + data["current_weather"]["time"] + " " + data["timezone"])
           .openOn(map);
 
         }
