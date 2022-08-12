@@ -36,25 +36,44 @@
 		maxZoom: 19,
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 	}).addTo(map);
-
+  
   var popup = L.popup();
 
+
   function onMapClick(e) {
+
+
+      console.log(e);
       console.log(e.latlng);
 
       url = "https://api.open-meteo.com/v1/forecast?latitude=" + e.latlng["lat"] + 
         "&longitude=" + e.latlng["lng"] + "&daily=temperature_2m_max&daily=temperature_2m_min&timezone=auto&current_weather=true"
+        + "&temperature_unit=fahrenheit"
       console.log(url);
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
+          /*
+          data = {
+            ...
+            "current_weather": {
+            "temperature": 19.4,
+            "windspeed": 6.2,
+            "winddirection": 36.0,
+            "weathercode": 0.0,
+            "time": "2022-08-12T01:00"
+          },
+          ...
+          }
+          */
           console.log(data)
           popup
           .setLatLng(e.latlng)
           .setContent("You clicked the map at " + e.latlng.toString() + 
             "<ul>" + 
-              "<li>Temperature: " + data["current_weather"]["temperature"] + "°C</li>" +
+              "<li>Temperature: " + data["current_weather"]["temperature"] + data["daily_units"]["temperature_2m_max"] + "</li>" +
               "<li>Hour: " + data["current_weather"]["time"] + " " + data["timezone"] + "</li>" + 
+              "<li>Wind Speed: " + data["current_weather"]["windspeed"] + " km/h</li>" +
             "</ul>")
           .openOn(map);
 
